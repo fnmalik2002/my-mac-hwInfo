@@ -1,5 +1,4 @@
 import macinfo_gui
-import mac_models as mm
 import wx
 import datetime
 import subprocess
@@ -98,19 +97,9 @@ class MacInfo(wx.Frame):
         self.basic_serial_number = sn[1]
         self.basic_model_identifier = sn[0]
         print(sn)
-        # Use last 4 of sn to look up mac model from mac_models.py file
-        last4 = self.basic_serial_number[-4::]
-        print(last4)
-        try:
-            self.basic_model_info = mm.models[last4]
-        except Exception as e:
-            self.basic_model_info = "Not in the model list"
-            print(e)
-
-        print(self.basic_model_info, self.basic_model_identifier)
-        model = self.basic_model_info + "      |      Model Identifier : " + self.basic_model_identifier
+        print(self.basic_serial_number, self.basic_model_identifier)
         gui.m_textCtrl_serial_number.SetLabel(self.basic_serial_number)
-        gui.m_textCtrl_model_info.SetLabel(model)
+        gui.m_textCtrl_model_info.SetLabel(self.basic_model_identifier)
 
     def get_processor(self):
         pr_cores = self.run_cmd("hostinfo | grep physically | awk ' {print $1}'")
@@ -194,7 +183,6 @@ class MacInfo(wx.Frame):
         ).split(":")[1]
         self.basic_wifi_status = self.run_cmd("ifconfig en1 | awk '/status/ {print $2}'")
         print(self.basic_wifi_status)
-
 
         if self.basic_wifi_status == 'active':
             try:
