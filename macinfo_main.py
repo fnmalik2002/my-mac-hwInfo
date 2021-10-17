@@ -172,7 +172,6 @@ class MacInfo(wx.Frame):
             bat_condition = bat[1]
             self.basic_battery_status = "Condition : " + bat_condition + "      |      Cycle Count : " + bat_cycles
             gui.m_textCtrl_battery_status.SetLabel(self.basic_battery_status)
-            gui.m_textCtrl_physical_condition.AppendText(self.basic_battery_status + "\n")
         else:
             self.basic_battery_status = "No Battery"
             gui.m_textCtrl_battery_status.SetLabel(self.basic_battery_status)
